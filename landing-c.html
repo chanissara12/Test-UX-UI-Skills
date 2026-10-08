@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flowdesk — Layout C</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* Layout C: indigo split hero, alternating feature rows, comparison-style pricing list */
+.hero-c{padding:96px 0}
+.hero-c .split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.hero-c .lead{font-size:20px;line-height:1.4;color:rgba(255,255,255,.8);margin:24px 0 32px;max-width:480px}
+.hero-c .cta{justify-content:flex-start}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:16px;position:relative}
+.tiles div{aspect-ratio:1;border-radius:var(--r-xl);display:flex;align-items:flex-end;padding:16px;font-weight:700;font-size:22px;letter-spacing:-.25px;box-shadow:var(--shadow-2)}
+.tiles div:nth-child(even){transform:translateY(24px)}
+.row-f{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;padding:48px 0}
+.row-f:nth-child(even) .txt{order:2}
+.row-f p{color:var(--ink-muted);font-size:18px;margin:12px 0 20px}
+.row-f .art{aspect-ratio:4/3;border-radius:var(--r-xl);display:grid;place-items:center;font-size:72px;border:1px solid var(--hairline)}
+.row-f a{color:var(--primary);font-weight:500}
+.band-stats{background:var(--canvas);border-block:1px solid var(--hairline);padding:56px 0}
+.compare{max-width:880px;margin:0 auto;background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-xl);overflow:hidden}
+.crow{display:grid;grid-template-columns:1.2fr 2fr auto;gap:24px;align-items:center;padding:24px;border-top:1px solid var(--hairline)}
+.crow:first-child{border-top:0}
+.crow.feat{background:var(--ink);color:var(--on-primary)}
+.crow .amt{font-size:32px;font-weight:700;letter-spacing:-.625px;line-height:1.2}
+.crow .muted{font-size:15px}
+.crow.feat .muted{color:rgba(255,255,255,.7)}
+.crow ul{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:6px 20px;font-size:15px}
+.crow li::before{content:"✓";color:var(--green);font-weight:700;margin-right:6px}
+.cta-c{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-xl);box-shadow:var(--shadow-1);padding:56px 24px;text-align:center}
+@media(max-width:900px){.hero-c .split,.row-f{grid-template-columns:1fr;gap:32px}.row-f:nth-child(even) .txt{order:0}.tiles{max-width:360px}.crow{grid-template-columns:1fr}}
+@media(max-width:600px){.hero-c{padding:56px 0}.hero-c .d1{font-size:40px}.cta .btn{width:100%}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a href="#" class="logo"><i></i>Flowdesk</a>
+  <div class="links"><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></div>
+  <div class="nav-r"><a href="#" class="login">Log in</a><a href="#pricing" class="btn btn-utility">Get Flowdesk free</a></div>
+</div></nav>
+
+<header class="hero hero-c" style="text-align:left"><div class="wrap split">
+  <div>
+    <span class="badge">Essential for staying organized</span>
+    <h1 class="d1" style="margin-top:16px">Meet the team's new home base.</h1>
+    <p class="lead">Flowdesk brings docs, projects and automations together so work just flows.</p>
+    <div class="cta"><a href="#pricing" class="btn btn-primary">Start free for 14 days</a><a href="#features" class="btn btn-secondary">Book a demo</a></div>
+  </div>
+  <div class="tiles" aria-hidden="true">
+    <div style="background:var(--purple);color:var(--purple-deep)">Docs</div>
+    <div style="background:var(--sky);color:#0b2a4a">Projects</div>
+    <div style="background:var(--pink);color:#4a0b33">Automate</div>
+    <div style="background:var(--orange);color:#fff">Reports</div>
+  </div>
+</div></header>
+
+<section id="features" style="padding-bottom:32px"><div class="wrap">
+  <div class="head" style="margin-bottom:16px"><h2 class="h1">Built for how teams really work</h2></div>
+  <div class="row-f"><div class="txt"><span class="eyebrow" style="color:var(--primary)">DOCS &amp; WIKIS</span><h3 class="h1" style="font-size:32px;margin-top:8px">Write together, in real time</h3><p>Comment, co-edit and turn any page into a living knowledge base your whole team trusts.</p><a href="#">Learn more →</a></div><div class="art" style="background:var(--purple)">📄</div></div>
+  <div class="row-f"><div class="txt"><span class="eyebrow" style="color:var(--primary)">PROJECTS</span><h3 class="h1" style="font-size:32px;margin-top:8px">One source of truth, many views</h3><p>Boards, timelines and tables over the same data. Switch views without losing context.</p><a href="#">Learn more →</a></div><div class="art" style="background:var(--sky)">🗂️</div></div>
+  <div class="row-f"><div class="txt"><span class="eyebrow" style="color:var(--primary)">AUTOMATIONS</span><h3 class="h1" style="font-size:32px;margin-top:8px">Describe it. Flowdesk builds it.</h3><p>Plain-words workflows connect 200+ tools including Slack, GitHub, Drive and Figma. No code.</p><a href="#">Learn more →</a></div><div class="art" style="background:var(--pink)">⚡</div></div>
+</div></section>
+
+<div class="band-stats"><div class="wrap stats">
+  <div><b>12k+</b><span>Teams worldwide</span></div><div><b>4.8★</b><span>Average rating</span></div>
+  <div><b>38%</b><span>Faster delivery</span></div><div><b>99.99%</b><span>Uptime</span></div>
+</div></div>
+
+<section id="pricing"><div class="wrap">
+  <div class="head"><span class="badge">Simple pricing</span>
+    <h2 class="h1" style="margin-top:16px">Plans and features</h2><p>Start free. Upgrade when your team grows.</p></div>
+  <div class="compare">
+    <div class="crow"><div><span class="eyebrow muted">STARTER</span><div class="amt">$0</div><span class="muted">Up to 5 people</span></div>
+      <ul><li>Unlimited docs</li><li>3 projects</li><li>10 automations / mo</li></ul><a href="#" class="btn btn-utility">Get started</a></div>
+    <div class="crow feat"><div><span class="eyebrow" style="color:var(--sky)">MOST POPULAR</span><div class="amt">$12</div><span class="muted">per person / mo, billed yearly</span></div>
+      <ul><li>Everything in Starter</li><li>Unlimited projects</li><li>Unlimited automations</li><li>Advanced reports</li></ul><a href="#" class="btn btn-primary">Start trial</a></div>
+    <div class="crow"><div><span class="eyebrow muted">ENTERPRISE</span><div class="amt">Custom</div><span class="muted">100+ people</span></div>
+      <ul><li>SSO &amp; SCIM</li><li>Audit logs</li><li>Dedicated manager</li></ul><a href="#" class="btn btn-utility">Contact sales</a></div>
+  </div>
+</div></section>
+
+<section id="faq" style="padding-top:0"><div class="wrap">
+  <div class="head"><h2 class="h1">Questions, answered</h2></div>
+  <div class="faq">
+    <details open><summary>Do I need a credit card to start?</summary><p>No. The trial and Starter plan need only an email address.</p></details>
+    <details><summary>Can I import from other tools?</summary><p>Yes. One-click importers cover Notion, Trello, Asana, Jira and CSV.</p></details>
+    <details><summary>How does billing work?</summary><p>You pay per active person, prorated daily. Add or remove seats anytime.</p></details>
+    <details><summary>Is my data secure?</summary><p>Encrypted in transit and at rest. SOC 2 Type II certified.</p></details>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap"><div class="cta-c">
+  <h2 class="h1">Get your team in flow today</h2>
+  <p class="muted" style="margin:16px 0 28px;font-size:18px">Join 12,000+ teams already working better together.</p>
+  <form class="signup" onsubmit="return false"><input type="email" placeholder="you@company.com" aria-label="Work email" required><button class="btn btn-primary" type="submit">Get Flowdesk free</button></form>
+</div></div></section>
+
+<footer><div class="wrap">
+  <div class="fgrid">
+    <div><a href="#" class="logo" style="color:var(--ink)"><i></i>Flowdesk</a><p class="muted" style="margin-top:12px;max-width:260px">The calm, all-in-one workspace for modern teams.</p></div>
+    <div><h5>PRODUCT</h5><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#">Integrations</a></div>
+    <div><h5>COMPANY</h5><a href="#">About</a><a href="#">Careers</a><a href="#">Contact</a></div>
+    <div><h5>RESOURCES</h5><a href="#">Help center</a><a href="#">Security</a><a href="#">Status</a></div>
+  </div>
+  <div class="copy">© 2026 Flowdesk, Inc. All rights reserved.</div>
+</div></footer>
+</body>
+</html>
