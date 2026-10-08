@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catalog — Blockwise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="../shared/theme.js"></script>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="../shared/core.css">
+<link rel="stylesheet" href="c.css">
+</head>
+<body>
+<header class="top"><div class="wrap"><nav aria-label="Main">
+  <a class="logo" href="index.html"><span>Block</span>wise</a>
+  <div class="links"><a class="hide-s" href="index.html#features">Features</a><a class="hide-s" href="products.html" aria-current="page"><u>Catalog</u></a><a class="hide-s" href="index.html#pricing">Pricing</a><button class="btn" id="theme" aria-label="Toggle light/dark theme" aria-pressed="false">Theme</button>
+    <a class="btn pri" href="index.html#contact">Contact sales</a></div>
+</nav></div></header>
+<main class="wrap">
+<div class="pagehead"><span class="tag">Catalog</span><h1>All products</h1></div>
+
+<form class="fbar" id="filters" aria-label="Product filters">
+    <div class="fgrid">
+        <div class="ff"><label for="q">Name</label><input id="q" type="search" placeholder="Product name or keyword" autocomplete="off"></div>
+    <div class="ff"><span class="lbl" id="l-category">Category</span><details class="dd" data-n="category"><summary aria-labelledby="l-category"><span class="val">Any</span></summary><div class="menu"><label class="opt"><input type="checkbox" name="cat" value="Project management"> Project management</label>
+        <label class="opt"><input type="checkbox" name="cat" value="Analytics"> Analytics</label>
+        <label class="opt"><input type="checkbox" name="cat" value="Security"> Security</label>
+        <label class="opt"><input type="checkbox" name="cat" value="Automation"> Automation</label></div></details></div>
+    <div class="ff"><span class="lbl" id="l-deployment">Deployment</span><details class="dd" data-n="deployment"><summary aria-labelledby="l-deployment"><span class="val">Any</span></summary><div class="menu"><label class="opt"><input type="checkbox" name="dep" value="Cloud"> Cloud</label>
+        <label class="opt"><input type="checkbox" name="dep" value="On-premise"> On-premise</label>
+        <label class="opt"><input type="checkbox" name="dep" value="Hybrid"> Hybrid</label></div></details></div>
+    <div class="ff"><span class="lbl" id="l-features">Features</span><details class="dd" data-n="features"><summary aria-labelledby="l-features"><span class="val">Any</span></summary><div class="menu"><label class="opt"><input type="checkbox" name="feat" value="sso"> SSO / SAML</label>
+        <label class="opt"><input type="checkbox" name="feat" value="api"> Open API</label>
+        <label class="opt"><input type="checkbox" name="feat" value="trial"> Free trial</label></div></details></div>
+    <div class="ff"><label for="price">Max price</label><div class="rg"><input id="price" type="range" min="0" max="60" step="2" value="60" aria-describedby="priceOut"><output id="priceOut" class="num">$60</output></div></div>
+    <div class="ff"><label for="rating">Min rating</label><select id="rating"><option value="0">Any</option><option value="4">4.0 and up</option><option value="4.5">4.5 and up</option></select></div>
+    </div>
+    <div class="freset"><button class="btn" type="reset">Clear</button><button class="btn pri" type="submit">Search</button></div>
+</form>
+<div class="toolbar">
+  <p id="count" role="status" aria-live="polite" class="num" style="margin:0;font-weight:600"></p>
+  <div class="sortf"><label for="sort">Sort by</label>
+    <select id="sort"><option value="name">Name (A–Z)</option><option value="price-asc">Price: low to high</option><option value="price-desc">Price: high to low</option><option value="rating">Rating</option></select></div>
+</div>
+<div class="chips" id="chips" aria-label="Active filters"></div>
+<div class="tablewrap">
+  <table id="ptable">
+    <caption class="sr">Products matching the selected filters</caption>
+    <thead><tr>
+      <th scope="col" aria-sort="ascending"><button class="th" data-k="name">Product</button></th>
+      <th scope="col"><button class="th" data-k="cat">Category</button></th>
+      <th scope="col"><button class="th" data-k="dep">Deployment</button></th>
+      <th scope="col" class="c">SSO</th>
+      <th scope="col" class="r"><button class="th" data-k="rating">Rating</button></th>
+      <th scope="col" class="r"><button class="th" data-k="price">Price</button></th>
+      <th scope="col"><span class="sr">Action</span></th>
+    </tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+  <div id="empty" hidden class="empty"><strong>No products match these filters.</strong><p>Try removing a filter or searching a different keyword.</p><button class="btn" id="clear2" type="button">Clear all filters</button></div>
+</div>
+</main>
+<footer><div class="wrap"><p>© 2026 Blockwise (fictional brand for a design demo). Prices and ratings are placeholders.</p></div></footer>
+<script src="../shared/products.js"></script>
+</body>
+</html>

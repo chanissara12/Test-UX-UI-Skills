@@ -1,0 +1,41 @@
+/* Set B design tokens — primitive → semantic → component. */
+
+/* 1. PRIMITIVE */
+:root{
+  --white:#FFFFFF;
+  --zinc-50:#FAFAFA; --zinc-100:#F4F4F5; --zinc-200:#E4E4E7; --zinc-400:#A1A1AA; --zinc-600:#52525B;
+  --zinc-800:#27272A; --zinc-900:#18181B; --zinc-925:#111113; --zinc-950:#09090B;
+  --pink-400:#F472B6; --pink-500:#EC4899; --pink-700:#BE185D;
+  --radius-1:2px; --border-w:1px;
+  --font-sans:'Inter',system-ui,sans-serif; --font-mono:'JetBrains Mono',ui-monospace,monospace;
+}
+
+/* spacing scale (4px base) and type scale: primitives, shared by every component */
+:root{
+  --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --space-5:20px; --space-6:24px;
+  --space-8:32px; --space-10:40px; --space-12:48px; --space-16:64px; --space-20:80px; --space-24:96px;
+  --text-xs:.75rem; --text-sm:.875rem; --text-base:1rem; --text-lg:1.125rem; --text-xl:1.25rem;
+  --text-2xl:1.5rem; --text-3xl:2rem; --text-4xl:2.5rem; --text-5xl:3rem; --text-6xl:3.75rem; --text-7xl:5rem;
+}
+
+/* 2. SEMANTIC (the only layer that changes per theme) */
+:root{
+  --bg:var(--zinc-50); --card:var(--white); --text:var(--zinc-950); --muted:var(--zinc-600);
+  --line:var(--zinc-200); --strong:var(--zinc-950); --hover:var(--zinc-100);
+  --accent:var(--pink-700); --mark:var(--pink-500); --ring:var(--zinc-950);
+  --btn:var(--zinc-900); --on-btn:var(--white);
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:var(--zinc-950); --card:var(--zinc-925); --text:var(--zinc-50); --muted:var(--zinc-400);
+  --line:var(--zinc-800); --strong:var(--zinc-50); --hover:var(--zinc-900);
+  --accent:var(--pink-400); --ring:var(--zinc-50);
+  --btn:var(--zinc-50); --on-btn:var(--zinc-950);
+}
+
+/* 3. COMPONENT */
+:root{
+  --font:var(--font-sans); --mono:var(--font-mono);
+  --radius:var(--radius-1); --bw:var(--border-w); --shadow:none;
+  --chip-bg:var(--hover); --chip-radius:var(--radius-1); --thead:transparent;
+}

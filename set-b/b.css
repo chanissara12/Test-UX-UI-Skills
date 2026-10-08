@@ -1,0 +1,48 @@
+/* Set B — Swiss / minimal. Monochrome, hairlines, one pink accent. Light + dark. */
+/* tokens: see tokens.css (primitive → semantic → component) */
+a{text-decoration-thickness:1px;text-underline-offset:3px}
+.btn{font-weight:500}
+.btn:hover{background:var(--hover)}.btn.pri:hover{background:var(--btn);opacity:.88}
+h1{font-size:clamp(var(--text-4xl),7vw,var(--text-7xl));line-height:1.02;letter-spacing:-.04em;font-weight:600;margin:0 0 var(--space-6)}
+h2{font-size:clamp(var(--text-2xl),3vw,var(--text-3xl));letter-spacing:-.02em;font-weight:600;margin:0 0 var(--space-2)}
+h3{margin:0 0 var(--space-1);font-size:var(--text-base);font-weight:600}
+.sub{color:var(--muted);max-width:56ch;margin:0 0 var(--space-8);font-size:var(--text-lg)}
+.k{font:500 var(--text-xs) var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+header.top{border-bottom:1px solid var(--line);background:var(--bg)}
+nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+nav .links{display:flex;gap:var(--space-5);align-items:center}
+nav .links a:not(.btn){text-decoration:none;font-size:var(--text-base)}nav .links a:not(.btn):hover{text-decoration:underline}
+nav .hide-s{display:none}@media(min-width:760px){nav .hide-s{display:inline}}
+.logo{font-weight:700;text-decoration:none;letter-spacing:-.02em;display:flex;align-items:center;gap:var(--space-2)}
+.logo i{width:12px;height:12px;background:var(--mark);display:inline-block}
+section{padding:var(--space-24) 0;border-top:1px solid var(--line)}
+.hero{padding-block:var(--space-24) var(--space-20);border:0}
+.hero .cta{display:flex;gap:var(--space-3);flex-wrap:wrap}
+.hero em{font-style:normal;background:linear-gradient(transparent 62%,color-mix(in srgb,var(--mark) 45%,transparent) 62%)}
+.logos{display:flex;gap:var(--space-4) var(--space-12);flex-wrap:wrap;color:var(--muted);font:500 var(--text-sm) var(--mono);padding:var(--space-8) 0;border-top:1px solid var(--line)}
+.rows{border-top:1px solid var(--strong)}
+.row{display:grid;grid-template-columns:56px 1fr;gap:var(--space-2) var(--space-6);padding:var(--space-8) 0;border-bottom:1px solid var(--line)}
+@media(min-width:760px){.row{grid-template-columns:80px 1fr 1.4fr}}
+.row .n{font:500 var(--text-sm) var(--mono);color:var(--muted)}
+.row p{margin:0;color:var(--muted)}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));border-top:1px solid var(--strong);border-left:1px solid var(--line)}
+.plan{padding:var(--space-8) var(--space-6);border-right:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:var(--space-2);background:var(--card)}
+.plan .price{font-size:var(--text-4xl);font-weight:600;letter-spacing:-.03em;margin:var(--space-2) 0}
+.plan .price small{font-size:var(--text-sm);color:var(--muted);font-weight:400}
+.plan ul{list-style:none;padding:0;margin:var(--space-2) 0 var(--space-6);display:grid;gap:var(--space-2);flex:1;color:var(--muted);font-size:var(--text-sm)}
+.plan li::before{content:"— ";color:var(--mark)}
+.plan.hl{background:var(--strong);color:var(--bg)}
+.plan.hl ul,.plan.hl .price small,.plan.hl .k{color:inherit;opacity:.8}
+.plan.hl .btn{background:var(--bg);color:var(--text);border-color:var(--bg)}
+.final{text-align:left}
+footer{border-top:1px solid var(--line);padding:var(--space-8) 0;color:var(--muted);font-size:var(--text-sm)}
+
+/* products page: search form + results */
+.pagehead{padding:var(--space-16) 0 var(--space-6)}.pagehead h1{font-size:clamp(var(--text-3xl),5vw,var(--text-5xl));margin-bottom:var(--space-2)}
+.fbar{background:transparent;border-width:1px 0;border-top-color:var(--strong)}
+thead th{border-bottom:1px solid var(--strong);font:500 var(--text-xs) var(--mono);text-transform:uppercase;letter-spacing:.06em}
+.tablewrap{border-left:0;border-right:0;border-radius:0;background:transparent}
+button.th{font-weight:500}
+tbody tr:hover td{background:var(--hover)}
+.yes{color:var(--accent)}
+.chip:hover{border-color:var(--strong)}
