@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flowdesk — Layout B</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* Layout B: light split hero, bento features, indigo band used once at the end */
+.split{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.hero-l{padding:88px 0 72px}
+.hero-l .lead{font-size:20px;line-height:1.4;color:var(--ink-muted);margin:24px 0 32px;max-width:520px}
+.hero-l .cta{justify-content:flex-start}
+.panel{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-xl);box-shadow:var(--shadow-2);padding:20px}
+.panel .band{height:72px;border-radius:var(--r-lg);margin-bottom:16px;background:var(--purple);display:flex;align-items:flex-end;padding:12px 16px;font-weight:700;font-size:22px;letter-spacing:-.25px;color:var(--purple-deep)}
+.panel .task{margin:0 0 8px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.chip{font-size:12px;font-weight:600;padding:4px 8px;border-radius:var(--r-sm);background:var(--canvas-soft);color:var(--ink-2)}
+.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:24px}
+.bento .card{grid-column:span 2}
+.bento .wide{grid-column:span 3}
+.bento .card .band{height:96px}
+.quote{max-width:760px;margin:0 auto;text-align:center}
+.quote blockquote{font-size:26px;font-weight:700;line-height:1.23;letter-spacing:-.625px}
+.quote cite{display:block;margin-top:20px;font-style:normal;color:var(--ink-muted);font-size:15px}
+.night{background:var(--secondary);color:var(--on-primary);text-align:center;position:relative;overflow:hidden}
+.night p{margin:16px 0 28px;color:rgba(255,255,255,.8);font-size:18px}
+.night input{font:inherit;font-size:15px;padding:6px 12px;min-height:44px;width:280px;max-width:100%;border:1px solid #ddd;border-radius:var(--r-xs);background:var(--surface)}
+@media(max-width:1000px){.split{grid-template-columns:1fr}.bento{grid-template-columns:1fr 1fr}.bento .card,.bento .wide{grid-column:auto}}
+@media(max-width:600px){.bento{grid-template-columns:1fr}.hero-l{padding:56px 0 48px}.hero-l .d1{font-size:40px}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a href="#" class="logo"><i></i>Flowdesk</a>
+  <div class="links"><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></div>
+  <div class="nav-r"><a href="#" class="login">Log in</a><a href="#pricing" class="btn btn-utility">Get Flowdesk free</a></div>
+</div></nav>
+
+<header class="wrap hero-l split">
+  <div>
+    <span class="badge" style="border:1px solid var(--hairline)">New · Automations 2.0</span>
+    <h1 class="d1" style="margin-top:16px">Your team's<br>calm place<br>to get it done.</h1>
+    <p class="lead">Docs, projects and automations in one paper-soft workspace, so your team ships instead of switching tabs.</p>
+    <div class="cta"><a href="#pricing" class="btn btn-primary">Start free for 14 days</a><a href="#features" class="btn btn-secondary">Book a demo</a></div>
+  </div>
+  <div class="panel" aria-hidden="true">
+    <div class="band">Launch plan</div>
+    <div class="task"><span class="dot" style="background:var(--pink)"></span>Write release notes</div>
+    <div class="task"><span class="dot" style="background:var(--orange)"></span>Pricing page QA</div>
+    <div class="task"><span class="dot" style="background:var(--teal)"></span>Connect Slack</div>
+    <div class="task"><span class="dot" style="background:var(--green)"></span>SSO rollout</div>
+    <div class="chips"><span class="chip">Docs</span><span class="chip">Board</span><span class="chip">Timeline</span><span class="chip">Reports</span></div>
+  </div>
+</header>
+
+<div class="logos wrap" style="padding-top:0">
+  <span class="eyebrow muted">TRUSTED BY 12,000+ TEAMS</span>
+  <div class="row"><span>Northwind</span><span>Acme&nbsp;Co</span><span>Globex</span><span>Initech</span><span>Umbra</span></div>
+</div>
+
+<section id="features"><div class="wrap">
+  <div class="head"><span class="badge">Everything in one place</span>
+    <h2 class="h1" style="margin-top:16px">Built for how teams really work</h2></div>
+  <div class="bento">
+    <article class="card wide"><div class="band" style="background:var(--purple)">📄</div><div class="body"><h3 class="h3">Docs &amp; wikis</h3><p>Write, comment and co-edit in real time. Turn any page into a living knowledge base.</p></div></article>
+    <article class="card wide"><div class="band" style="background:var(--sky)">🗂️</div><div class="body"><h3 class="h3">Projects</h3><p>Boards, timelines and tables over the same data. Switch views without losing context.</p></div></article>
+    <article class="card"><div class="band" style="background:var(--pink)">⚡</div><div class="body"><h3 class="h3">Automations</h3><p>Plain-words workflows. No code.</p></div></article>
+    <article class="card"><div class="band" style="background:var(--teal)">🔌</div><div class="body"><h3 class="h3">200+ integrations</h3><p>Slack, GitHub, Drive, Figma and more.</p></div></article>
+    <article class="card"><div class="band" style="background:var(--orange)">📊</div><div class="body"><h3 class="h3">Reports</h3><p>Live dashboards you can share.</p></div></article>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap stats">
+  <div><b>12k+</b><span>Teams worldwide</span></div><div><b>4.8★</b><span>Average rating</span></div>
+  <div><b>38%</b><span>Faster delivery</span></div><div><b>99.99%</b><span>Uptime</span></div>
+</div></section>
+
+<section style="background:var(--canvas);border-block:1px solid var(--hairline)"><div class="wrap quote">
+  <blockquote>“We replaced five tools with Flowdesk and shipped our launch two weeks early.”</blockquote>
+  <cite>Maya Chen, Head of Product at Northwind</cite>
+</div></section>
+
+<section id="pricing"><div class="wrap">
+  <div class="head"><span class="badge">Simple pricing</span>
+    <h2 class="h1" style="margin-top:16px">Plans and features</h2><p>Start free. Upgrade when your team grows.</p></div>
+  <div class="price-grid">
+    <div class="tier free"><div><span class="eyebrow muted">STARTER</span><div class="amt">$0</div><span class="sm muted">Free forever, up to 5 people</span></div>
+      <ul><li>Unlimited docs</li><li>3 projects</li><li>10 automations / month</li></ul><a href="#" class="btn btn-utility">Get started</a></div>
+    <div class="tier feat"><div><span class="eyebrow" style="color:var(--sky)">MOST POPULAR</span><div class="amt">$12</div><span class="sm muted">per person / month, billed yearly</span></div>
+      <ul><li>Everything in Starter</li><li>Unlimited projects</li><li>Unlimited automations</li><li>Advanced reports</li></ul><a href="#" class="btn btn-primary">Start 14-day trial</a></div>
+    <div class="tier"><div><span class="eyebrow muted">ENTERPRISE</span><div class="amt">Custom</div><span class="sm muted">For orgs with 100+ people</span></div>
+      <ul><li>SSO &amp; SCIM</li><li>Audit logs</li><li>Dedicated success manager</li></ul><a href="#" class="btn btn-utility">Contact sales</a></div>
+  </div>
+</div></section>
+
+<section id="faq" style="padding-top:0"><div class="wrap">
+  <div class="head"><h2 class="h1">Questions, answered</h2></div>
+  <div class="faq">
+    <details open><summary>Do I need a credit card to start?</summary><p>No. The trial and Starter plan need only an email address.</p></details>
+    <details><summary>Can I import from other tools?</summary><p>Yes. One-click importers cover Notion, Trello, Asana, Jira and CSV.</p></details>
+    <details><summary>How does billing work?</summary><p>You pay per active person, prorated daily. Add or remove seats anytime.</p></details>
+    <details><summary>Is my data secure?</summary><p>Encrypted in transit and at rest. SOC 2 Type II certified.</p></details>
+  </div>
+</div></section>
+
+<section class="night"><div class="wrap">
+  <span class="sticker" style="--rot:-10deg;background:var(--pink);left:10%;top:25%;width:44px;height:44px"></span>
+  <span class="sticker" style="--rot:9deg;background:var(--sky);right:12%;top:20%;width:48px;height:48px"></span>
+  <h2 class="h1">Get your team in flow today</h2>
+  <p>Join 12,000+ teams already working better together.</p>
+  <form class="signup" onsubmit="return false"><input type="email" placeholder="you@company.com" aria-label="Work email" required><button class="btn btn-primary" type="submit">Get Flowdesk free</button></form>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="fgrid">
+    <div><a href="#" class="logo" style="color:var(--ink)"><i></i>Flowdesk</a><p class="muted" style="margin-top:12px;max-width:260px">The calm, all-in-one workspace for modern teams.</p></div>
+    <div><h5>PRODUCT</h5><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#">Integrations</a></div>
+    <div><h5>COMPANY</h5><a href="#">About</a><a href="#">Careers</a><a href="#">Contact</a></div>
+    <div><h5>RESOURCES</h5><a href="#">Help center</a><a href="#">Security</a><a href="#">Status</a></div>
+  </div>
+  <div class="copy">© 2026 Flowdesk, Inc. All rights reserved.</div>
+</div></footer>
+</body>
+</html>
