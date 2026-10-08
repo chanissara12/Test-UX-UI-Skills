@@ -1,9 +1,9 @@
 # Blockwise — design system (set C)
 
-Soft brutalist: warm paper, ink borders, hard offset shadows, one muted pink. Structure comes from `shared/core.css`; this set supplies tokens in `set-c/tokens.css` and look in `set-c/c.css`.
+Soft brutalist: warm paper, ink borders, hard offset shadows, one muted pink. Tokens are in `set-c/tokens.css`; components are styled in `set-c/styles.css`.
 
 - Fonts: Space Grotesk, Space Mono
-- Files: set-c/tokens.css · set-c/c.css · shared/
+- Files: set-c/tokens.css · set-c/styles.css
 - Themes: light and dark (`data-theme="dark"` on `<html>`, toggle `#theme`, `localStorage` key `t`, default follows the system)
 
 ## Architecture: three layers
@@ -17,10 +17,9 @@ Component  per-component hooks built from semantic     --shadow-btn, --chip-bg
 ```
 
 Rules:
-1. Components (`set-c/c.css`, `shared/core.css`) use semantic or component tokens. No raw hex.
+1. Components (`set-c/styles.css`) use semantic or component tokens. No raw hex.
 2. Dark mode overrides **semantic** tokens only. Primitives never change.
 3. Spacing (`padding`, `margin`, `gap`) and `font-size` use the scales below. Exceptions: 1–3px hairlines and offsets.
-4. `shared/core.css` is structure only. Each set in B and C supplies the tokens it reads.
 
 ## Scales
 

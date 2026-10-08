@@ -1,9 +1,9 @@
 # Lumen — design system (set B)
 
-Swiss / minimal: monochrome with one pink accent. Structure comes from `shared/core.css`; this set supplies tokens in `set-b/tokens.css` and look in `set-b/b.css`.
+Swiss / minimal: monochrome with one pink accent. Tokens are in `set-b/tokens.css`; components are styled in `set-b/styles.css`.
 
 - Fonts: Inter, JetBrains Mono
-- Files: set-b/tokens.css · set-b/b.css · shared/
+- Files: set-b/tokens.css · set-b/styles.css
 - Themes: light and dark (`data-theme="dark"` on `<html>`, toggle `#theme`, `localStorage` key `t`, default follows the system)
 
 ## Architecture: three layers
@@ -17,10 +17,9 @@ Component  per-component hooks built from semantic     --radius, --chip-bg
 ```
 
 Rules:
-1. Components (`set-b/b.css`, `shared/core.css`) use semantic or component tokens. No raw hex.
+1. Components (`set-b/styles.css`) use semantic or component tokens. No raw hex.
 2. Dark mode overrides **semantic** tokens only. Primitives never change.
 3. Spacing (`padding`, `margin`, `gap`) and `font-size` use the scales below. Exceptions: 1–3px hairlines and offsets.
-4. `shared/core.css` is structure only. Each set in B and C supplies the tokens it reads.
 
 ## Scales
 

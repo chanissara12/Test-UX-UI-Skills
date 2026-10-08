@@ -1,6 +1,6 @@
 # Northwind — design system (set A)
 
-Professional modern, blue. Own `styles.css`, does not use `shared/`.
+Professional modern, blue. Self-contained: own `styles.css` and `tokens.css`.
 
 - Fonts: Plus Jakarta Sans
 - Files: set-a/tokens.css · set-a/styles.css
