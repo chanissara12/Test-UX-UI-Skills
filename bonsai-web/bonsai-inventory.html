@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>สต็อกต้นบอนไซ | Bonsai Kyo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+Thai:wght@400;500;700&family=Shippori+Mincho:wght@500;700&display=swap" rel="stylesheet">
+<script src="tokens.js"></script>
+</head>
+<body class="bg-washi text-sumi font-sans leading-relaxed antialiased">
+
+<header class="border-b border-line bg-washi">
+  <nav class="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between" aria-label="เมนูหลัก">
+    <a href="bonsai-landing.html" class="flex items-center gap-3 cursor-pointer">
+      <span class="w-9 h-9 rounded-full bg-shu text-washi grid place-items-center font-serif text-lg" aria-hidden="true">盆</span>
+      <span class="font-serif text-lg tracking-wide">Bonsai Kyo</span>
+    </a>
+    <a href="bonsai-landing.html" class="cursor-pointer text-sm text-nezumi hover:text-sumi transition-colors duration-200 min-h-[44px] inline-flex items-center">กลับหน้าแรก</a>
+  </nav>
+</header>
+
+<main class="max-w-6xl mx-auto px-5 py-10">
+  <h1 class="font-serif text-3xl mb-1">สต็อกต้นบอนไซ</h1>
+  <p class="text-nezumi mb-8">รายการต้นไม้ในคลังและโครงการ อัปเดตล่าสุด 7 ต.ค. 2569</p>
+
+  <!-- Summary -->
+  <dl class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+    <div class="bg-kinari/60 border border-line p-4"><dt class="text-sm text-nezumi">ทั้งหมด</dt><dd id="s-all" class="font-serif text-2xl">0</dd></div>
+    <div class="bg-kinari/60 border border-line p-4"><dt class="text-sm text-nezumi">พร้อมขาย</dt><dd id="s-ok" class="font-serif text-2xl">0</dd></div>
+    <div class="bg-kinari/60 border border-line p-4"><dt class="text-sm text-nezumi">จองแล้ว</dt><dd id="s-res" class="font-serif text-2xl">0</dd></div>
+    <div class="bg-kinari/60 border border-line p-4"><dt class="text-sm text-nezumi">มูลค่ารวม (฿)</dt><dd id="s-val" class="font-serif text-2xl">0</dd></div>
+  </dl>
+
+  <!-- Filters -->
+  <div class="flex flex-wrap gap-4 mb-4">
+    <div class="flex-1 min-w-[220px]">
+      <label for="q" class="block text-sm mb-1">ค้นหา</label>
+      <input id="q" type="search" placeholder="รหัส หรือ ชื่อต้นไม้" class="w-full min-h-[44px] px-3 bg-washi border border-line focus-visible:outline focus-visible:outline-2 focus-visible:outline-matcha">
+    </div>
+    <div>
+      <label for="st" class="block text-sm mb-1">สถานะ</label>
+      <select id="st" class="min-h-[44px] px-3 bg-washi border border-line cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-matcha">
+        <option value="">ทั้งหมด</option><option>พร้อมขาย</option><option>จองแล้ว</option><option>กำลังเตรียม</option>
+      </select>
+    </div>
+  </div>
+  <p id="count" class="text-sm text-nezumi mb-2" aria-live="polite"></p>
+
+  <!-- Table -->
+  <div class="overflow-x-auto border border-line">
+    <table class="w-full text-sm text-left min-w-[760px]">
+      <caption class="sr-only">รายการสต็อกต้นบอนไซ คลิกหัวคอลัมน์เพื่อเรียงลำดับ</caption>
+      <thead class="bg-kinari text-nezumi">
+        <tr id="head"></tr>
+      </thead>
+      <tbody id="body" class="divide-y divide-line"></tbody>
+    </table>
+  </div>
+</main>
+
+<footer class="border-t border-line mt-16">
+  <p class="max-w-6xl mx-auto px-5 py-8 text-sm text-nezumi">&copy; 2026 Bonsai Kyo Co., Ltd.</p>
+</footer>
+
+<script>
+const data = [
+  ['BK-001','สนดำญี่ปุ่น','Kuromatsu',25,'Shohin',28000,'พร้อมขาย'],
+  ['BK-002','เมเปิลญี่ปุ่น','Acer palmatum',12,'Chuhin',14500,'จองแล้ว'],
+  ['BK-003','ไทรเกาหลี','Ficus microcarpa',8,'Shohin',6800,'พร้อมขาย'],
+  ['BK-004','บ๊วยดอก','Prunus mume',15,'Chuhin',16000,'พร้อมขาย'],
+  ['BK-005','จูนิเปอร์','Juniperus chinensis',30,'Dai',42000,'กำลังเตรียม'],
+  ['BK-006','ชาฮกเกี้ยน','Carmona microphylla',10,'Shohin',5200,'พร้อมขาย'],
+  ['BK-007','สนห้าใบ','Goyomatsu',40,'Dai',65000,'จองแล้ว'],
+  ['BK-008','ซากุระแคระ','Prunus incisa',9,'Mame',9800,'กำลังเตรียม'],
+  ['BK-009','เมเปิลสามง่าม','Acer buergerianum',18,'Chuhin',18500,'พร้อมขาย'],
+  ['BK-010','มะขามป้อมแคระ','Phyllanthus emblica',14,'Chuhin',7500,'พร้อมขาย'],
+  ['BK-011','โมก','Wrightia religiosa',7,'Mame',4200,'จองแล้ว'],
+  ['BK-012','ไม้ฝาดดอกขาว','Lagerstroemia indica',20,'Chuhin',11000,'พร้อมขาย'],
+];
+const cols = [
+  ['รหัส',0,'text'],['ชื่อต้นไม้',1,'text'],['ชื่อวิทยาศาสตร์',2,'text'],
+  ['อายุ (ปี)',3,'num'],['ขนาด',4,'text'],['ราคา (฿)',5,'num'],['สถานะ',6,'text']
+];
+const badge = {
+  'พร้อมขาย':'bg-matcha/10 text-matcha-dark border-matcha/40',
+  'จองแล้ว':'bg-shu/10 text-shu border-shu/40',
+  'กำลังเตรียม':'bg-kinari text-nezumi border-line'
+};
+const $ = id => document.getElementById(id);
+let sortCol = 0, dir = 1;
+
+$('head').innerHTML = cols.map(([t,i,k]) =>
+  `<th scope="col" aria-sort="none" class="px-4 py-3 font-medium ${k==='num'?'text-right':''}">
+     <button data-i="${i}" class="cursor-pointer min-h-[44px] inline-flex items-center gap-1 hover:text-sumi transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-matcha">${t}<span class="arrow text-xs" aria-hidden="true"></span></button>
+   </th>`).join('');
+
+function render() {
+  const q = $('q').value.trim().toLowerCase(), st = $('st').value;
+  const rows = data.filter(r => (!st || r[6]===st) && (!q || (r[0]+r[1]+r[2]).toLowerCase().includes(q)))
+    .sort((a,b) => (a[sortCol] > b[sortCol] ? 1 : a[sortCol] < b[sortCol] ? -1 : 0) * dir);
+  $('body').innerHTML = rows.length ? rows.map(r => `
+    <tr class="hover:bg-kinari/50 transition-colors duration-200">
+      <td class="px-4 py-3 text-nezumi">${r[0]}</td>
+      <td class="px-4 py-3 font-medium">${r[1]}</td>
+      <td class="px-4 py-3 italic text-nezumi">${r[2]}</td>
+      <td class="px-4 py-3 text-right tabular-nums">${r[3]}</td>
+      <td class="px-4 py-3">${r[4]}</td>
+      <td class="px-4 py-3 text-right tabular-nums">${r[5].toLocaleString('th-TH')}</td>
+      <td class="px-4 py-3"><span class="inline-block px-2.5 py-0.5 border text-xs ${badge[r[6]]}">${r[6]}</span></td>
+    </tr>`).join('') : `<tr><td colspan="7" class="px-4 py-10 text-center text-nezumi">ไม่พบรายการที่ตรงกับเงื่อนไข</td></tr>`;
+  $('count').textContent = `แสดง ${rows.length} จาก ${data.length} รายการ`;
+  document.querySelectorAll('#head th').forEach((th,i) => {
+    th.setAttribute('aria-sort', i===sortCol ? (dir>0?'ascending':'descending') : 'none');
+    th.querySelector('.arrow').textContent = i===sortCol ? (dir>0?'▲':'▼') : '';
+  });
+}
+
+$('head').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  const i = +b.dataset.i; dir = i===sortCol ? -dir : 1; sortCol = i; render();
+});
+$('q').addEventListener('input', render);
+$('st').addEventListener('change', render);
+
+$('s-all').textContent = data.length;
+$('s-ok').textContent = data.filter(r => r[6]==='พร้อมขาย').length;
+$('s-res').textContent = data.filter(r => r[6]==='จองแล้ว').length;
+$('s-val').textContent = data.reduce((s,r) => s+r[5], 0).toLocaleString('th-TH');
+render();
+</script>
+</body>
+</html>

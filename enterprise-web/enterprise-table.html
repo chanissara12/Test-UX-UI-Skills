@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>รายการคำสั่งซื้อ — Meridian</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+tailwind.config = { theme: { extend: {
+  fontFamily: { sans: ['Inter', 'Noto Sans Thai', 'sans-serif'] },
+  colors: { brand: { DEFAULT: '#1e3a5f', dark: '#14283f', soft: '#eef3f9' } }
+} } }
+</script>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased">
+
+<header class="border-b border-slate-200 bg-white">
+  <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
+    <a href="enterprise-landing.html" class="flex items-center gap-2 font-semibold tracking-tight text-brand">
+      <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 20V8l9-5 9 5v12M9 20v-7h6v7"/></svg>
+      Meridian
+    </a>
+    <a href="enterprise-landing.html" class="text-sm text-slate-600 transition-colors hover:text-brand">← กลับหน้าหลัก</a>
+  </div>
+</header>
+
+<main class="mx-auto max-w-7xl px-6 py-10">
+  <div class="flex flex-col gap-1">
+    <h1 class="text-2xl font-semibold tracking-tight">รายการคำสั่งซื้อ</h1>
+    <p class="text-sm text-slate-600">ข้อมูลล่าสุดของลูกค้าองค์กร</p>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <div class="relative sm:w-80">
+      <label for="q" class="sr-only">ค้นหา</label>
+      <svg class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input id="q" type="search" placeholder="ค้นหาบริษัท หรือเลขที่คำสั่งซื้อ" class="w-full rounded-md border border-slate-300 bg-white py-2 pl-9 pr-3 text-sm placeholder:text-slate-500 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/30">
+    </div>
+    <div>
+      <label for="status" class="sr-only">กรองตามสถานะ</label>
+      <select id="status" class="cursor-pointer rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/30">
+        <option value="">ทุกสถานะ</option>
+        <option>สำเร็จ</option>
+        <option>รอดำเนินการ</option>
+        <option>ยกเลิก</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="mt-4 overflow-x-auto rounded-lg border border-slate-200 bg-white">
+    <table class="w-full min-w-[720px] text-left text-sm">
+      <caption class="sr-only">ตารางคำสั่งซื้อ คลิกหัวคอลัมน์เพื่อเรียงลำดับ</caption>
+      <thead class="border-b border-slate-200 bg-slate-50 text-xs uppercase tracking-wide text-slate-600">
+        <tr id="head"></tr>
+      </thead>
+      <tbody id="body" class="divide-y divide-slate-100"></tbody>
+    </table>
+    <p id="empty" class="hidden px-4 py-12 text-center text-sm text-slate-600">ไม่พบข้อมูลที่ตรงกับเงื่อนไข</p>
+  </div>
+
+  <!-- Pager -->
+  <div class="mt-4 flex items-center justify-between text-sm text-slate-600">
+    <p id="info" aria-live="polite"></p>
+    <div class="flex gap-2">
+      <button id="prev" class="cursor-pointer rounded-md border border-slate-300 bg-white px-3 py-1.5 transition-colors hover:border-brand hover:text-brand focus:outline-none focus-visible:ring-2 focus-visible:ring-brand disabled:cursor-not-allowed disabled:opacity-50">ก่อนหน้า</button>
+      <button id="next" class="cursor-pointer rounded-md border border-slate-300 bg-white px-3 py-1.5 transition-colors hover:border-brand hover:text-brand focus:outline-none focus-visible:ring-2 focus-visible:ring-brand disabled:cursor-not-allowed disabled:opacity-50">ถัดไป</button>
+    </div>
+  </div>
+</main>
+
+<script>
+const cols = [['id','เลขที่'],['company','บริษัท'],['owner','ผู้รับผิดชอบ'],['date','วันที่'],['amount','มูลค่า (บาท)'],['status','สถานะ']];
+const names = ['บริษัท สยามเทค จำกัด','ไทยคอนสตรัคชั่น จำกัด (มหาชน)','อัลฟ่า โลจิสติกส์','เบต้า ฟาร์มา','ภูมิพัฒน์ เอ็นเนอร์ยี่','นครธน ฟู้ดส์','ไลท์เฮาส์ ดิจิทัล','โกลบอล เทรดดิ้ง','เมโทร พร็อพเพอร์ตี้','ออริจิน ออโต้พาร์ท'];
+const owners = ['สมชาย ก.','วิภา ส.','ธนพล ร.','กนกพร ม.','ปกรณ์ ช.'];
+const states = ['สำเร็จ','รอดำเนินการ','ยกเลิก'];
+const rows = Array.from({length: 47}, (_, i) => ({
+  id: 'ORD-' + (24001 + i),
+  company: names[(i * 7) % names.length],
+  owner: owners[(i * 3) % owners.length],
+  date: new Date(2026, 8, 30 - (i % 28)).toISOString().slice(0, 10),
+  amount: 15000 + ((i * 73919) % 980000),
+  status: states[i % 5 === 0 ? 2 : i % 3 === 1 ? 1 : 0]
+}));
+const badge = {
+  'สำเร็จ': 'bg-emerald-50 text-emerald-800 ring-emerald-600/20',
+  'รอดำเนินการ': 'bg-amber-50 text-amber-800 ring-amber-600/20',
+  'ยกเลิก': 'bg-slate-100 text-slate-700 ring-slate-500/20'
+};
+const PAGE = 10;
+let sort = {k: 'date', d: -1}, page = 0;
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function view() {
+  const q = $('q').value.trim().toLowerCase(), st = $('status').value;
+  return rows
+    .filter(r => (!st || r.status === st) && (!q || (r.company + r.id).toLowerCase().includes(q)))
+    .sort((a, b) => (a[sort.k] > b[sort.k] ? 1 : a[sort.k] < b[sort.k] ? -1 : 0) * sort.d);
+}
+
+function render() {
+  $('head').innerHTML = cols.map(([k, t]) => {
+    const on = sort.k === k;
+    return `<th scope="col" class="px-4 py-3 font-medium ${k === 'amount' ? 'text-right' : ''}" aria-sort="${on ? (sort.d > 0 ? 'ascending' : 'descending') : 'none'}">
+      <button data-k="${k}" class="inline-flex cursor-pointer items-center gap-1 uppercase tracking-wide hover:text-brand focus:outline-none focus-visible:ring-2 focus-visible:ring-brand">${t}<span aria-hidden="true">${on ? (sort.d > 0 ? '↑' : '↓') : ''}</span></button></th>`;
+  }).join('');
+
+  const all = view(), pages = Math.max(1, Math.ceil(all.length / PAGE));
+  page = Math.min(page, pages - 1);
+  const slice = all.slice(page * PAGE, page * PAGE + PAGE);
+  $('body').innerHTML = slice.map(r => `<tr class="transition-colors hover:bg-brand-soft">
+    <td class="px-4 py-3 font-medium text-brand">${r.id}</td>
+    <td class="px-4 py-3">${esc(r.company)}</td>
+    <td class="px-4 py-3 text-slate-600">${esc(r.owner)}</td>
+    <td class="px-4 py-3 tabular-nums text-slate-600">${r.date}</td>
+    <td class="px-4 py-3 text-right tabular-nums">${r.amount.toLocaleString('th-TH')}</td>
+    <td class="px-4 py-3"><span class="inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ring-1 ring-inset ${badge[r.status]}">${r.status}</span></td></tr>`).join('');
+  $('empty').classList.toggle('hidden', all.length > 0);
+  $('info').textContent = all.length ? `แสดง ${page * PAGE + 1}–${page * PAGE + slice.length} จาก ${all.length} รายการ` : '';
+  $('prev').disabled = page === 0;
+  $('next').disabled = page >= pages - 1;
+}
+
+$('head').onclick = e => {
+  const k = e.target.closest('button')?.dataset.k;
+  if (!k) return;
+  sort = {k, d: sort.k === k ? -sort.d : 1};
+  render();
+};
+$('q').oninput = $('status').onchange = () => { page = 0; render(); };
+$('prev').onclick = () => { page--; render(); };
+$('next').onclick = () => { page++; render(); };
+render();
+</script>
+</body>
+</html>

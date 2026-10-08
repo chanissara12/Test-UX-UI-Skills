@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>แคตตาล็อกอุปกรณ์ — Nexora IT</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500;600;700&family=Fira+Sans:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="hardware-b-tokens.js"></script>
+<style>
+  h1, h2, h3, .font-heading { font-family: 'Fira Code', 'Noto Sans Thai', monospace; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body class="bg-surface text-text font-sans antialiased">
+<a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:m-3 focus:rounded focus:bg-surface-raised focus:px-3 focus:py-2">ข้ามไปยังเนื้อหา</a>
+
+<header class="sticky top-4 z-50 mx-4 mt-4">
+  <nav class="mx-auto flex h-14 max-w-7xl items-center justify-between rounded-lg border border-border bg-surface-raised/90 px-4 backdrop-blur" aria-label="เมนูหลัก">
+    <a href="hardware-b-landing.html" class="inline-flex min-h-[44px] items-center font-heading text-sm font-semibold">Nexora IT</a>
+    <a href="hardware-b-landing.html" class="inline-flex min-h-[44px] items-center text-sm text-text-muted transition-colors hover:text-text">กลับหน้าหลัก</a>
+  </nav>
+</header>
+
+<main id="main" class="mx-auto max-w-7xl px-4 py-8 sm:px-6">
+  <h1 class="text-xl font-semibold tracking-tight md:text-2xl">แคตตาล็อกอุปกรณ์</h1>
+  <p class="mt-1 text-sm text-text-muted">ราคาไม่รวม VAT · ราคาโครงการสอบถามฝ่ายขาย</p>
+
+  <!-- KPI: นับตามตัวกรองปัจจุบัน -->
+  <dl class="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-4" aria-label="สรุปตามตัวกรอง">
+    <div class="rounded-lg border border-border bg-surface-raised p-3"><dt class="text-xs text-text-muted">รายการทั้งหมด</dt><dd id="k-all" class="mt-1 font-heading text-xl font-semibold tabular-nums">0</dd></div>
+    <div class="rounded-lg border border-border bg-surface-raised p-3"><dt class="text-xs text-text-muted">มีสินค้า</dt><dd id="k-in" class="mt-1 font-heading text-xl font-semibold tabular-nums text-success">0</dd></div>
+    <div class="rounded-lg border border-border bg-surface-raised p-3"><dt class="text-xs text-text-muted">สั่งจอง</dt><dd id="k-res" class="mt-1 font-heading text-xl font-semibold tabular-nums text-warning">0</dd></div>
+    <div class="rounded-lg border border-border bg-surface-raised p-3"><dt class="text-xs text-text-muted">หมด</dt><dd id="k-out" class="mt-1 font-heading text-xl font-semibold tabular-nums text-danger">0</dd></div>
+  </dl>
+
+  <form class="mt-4 grid gap-3 sm:grid-cols-[1fr_11rem_11rem_auto]" role="search" onsubmit="return false">
+    <div>
+      <label for="q" class="sr-only">ค้นหาสินค้า</label>
+      <input id="q" type="search" placeholder="ค้นหารุ่นหรือ SKU" class="min-h-[44px] w-full rounded-md border border-border-strong bg-surface-raised px-3 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+    </div>
+    <div>
+      <label for="cat" class="sr-only">หมวดสินค้า</label>
+      <select id="cat" class="min-h-[44px] w-full cursor-pointer rounded-md border border-border-strong bg-surface-raised px-3 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+        <option value="">ทุกหมวด</option><option>Notebook</option><option>Server</option><option>Network</option><option>Peripheral</option>
+      </select>
+    </div>
+    <div>
+      <label for="st" class="sr-only">สถานะสต็อก</label>
+      <select id="st" class="min-h-[44px] w-full cursor-pointer rounded-md border border-border-strong bg-surface-raised px-3 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+        <option value="">ทุกสถานะ</option><option>มีสินค้า</option><option>สั่งจอง</option><option>หมด</option>
+      </select>
+    </div>
+    <button id="reset" type="button" class="min-h-[44px] cursor-pointer rounded-md border border-border-strong bg-surface-raised px-4 text-sm font-medium transition-colors hover:border-text focus:outline-none focus-visible:ring-2 focus-visible:ring-primary">ล้างตัวกรอง</button>
+  </form>
+  <p id="count" class="mt-3 text-sm text-text-muted" role="status" aria-live="polite"></p>
+
+  <div class="mt-2 overflow-x-auto rounded-lg border border-border bg-surface-raised">
+    <table class="w-full min-w-[720px] text-left text-sm">
+      <caption class="sr-only">รายการอุปกรณ์คอมพิวเตอร์ คลิกหัวคอลัมน์เพื่อเรียงลำดับ</caption>
+      <thead class="border-b border-border bg-surface-muted text-xs text-text-muted">
+        <tr id="head"></tr>
+      </thead>
+      <tbody id="rows" class="divide-y divide-border"></tbody>
+    </table>
+  </div>
+</main>
+
+<script>
+const items = [
+  ['NB-1401', 'ThinkBook 14 G6 · i5 / 16GB / 512GB', 'Notebook', 'มีสินค้า', 27900],
+  ['NB-1620', 'ProBook 16 · Ryzen 7 / 32GB / 1TB', 'Notebook', 'มีสินค้า', 38500],
+  ['NB-2001', 'Workstation 15 · i9 / 64GB / RTX A2000', 'Notebook', 'สั่งจอง', 89000],
+  ['SV-2210', 'Rack 1U · Xeon 8C / 64GB / 2x960GB SSD', 'Server', 'มีสินค้า', 112000],
+  ['SV-2450', 'Rack 2U · Xeon 16C / 128GB / 4x2TB', 'Server', 'สั่งจอง', 198000],
+  ['SV-3010', 'Tower · Xeon 6C / 32GB / 2x1TB', 'Server', 'มีสินค้า', 64500],
+  ['NW-3105', 'Switch 24 พอร์ต PoE+ Managed', 'Network', 'มีสินค้า', 18900],
+  ['NW-3320', 'Firewall UTM 10 Gbps', 'Network', 'มีสินค้า', 74000],
+  ['NW-3401', 'Access Point Wi-Fi 6E', 'Network', 'หมด', 6900],
+  ['PR-4102', 'จอมอนิเตอร์ 27" QHD IPS', 'Peripheral', 'มีสินค้า', 8900],
+  ['PR-4210', 'Docking Station USB-C 100W', 'Peripheral', 'มีสินค้า', 4200],
+  ['PR-4505', 'เครื่องพิมพ์เลเซอร์ A4 Duplex Network', 'Peripheral', 'สั่งจอง', 9800],
+];
+const cols = [['SKU', ''], ['สินค้า', ''], ['หมวด', ''], ['สถานะ', ''], ['ราคา (บาท)', 'justify-end text-right']];
+const tone = { 'มีสินค้า': 'text-success', 'สั่งจอง': 'text-warning', 'หมด': 'text-danger' };
+const $ = id => document.getElementById(id);
+const q = $('q'), cat = $('cat'), st = $('st');
+let sort = { k: 0, dir: 1 };
+const p = new URLSearchParams(location.search).get('c');
+if ([...cat.options].some(o => o.value === p)) cat.value = p;
+
+function head() {
+  $('head').innerHTML = cols.map(([label, cls], k) => {
+    const on = sort.k === k;
+    return `<th scope="col" aria-sort="${on ? (sort.dir > 0 ? 'ascending' : 'descending') : 'none'}" class="px-1">
+      <button type="button" data-k="${k}" class="flex min-h-[44px] w-full cursor-pointer items-center gap-1 px-3 font-medium transition-colors hover:text-text focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${cls}">${label}<span aria-hidden="true">${on ? (sort.dir > 0 ? '▲' : '▼') : ''}</span></button></th>`;
+  }).join('');
+}
+
+function render() {
+  const t = q.value.trim().toLowerCase();
+  const list = items
+    .filter(i => (!cat.value || i[2] === cat.value) && (!st.value || i[3] === st.value) && (!t || (i[0] + i[1]).toLowerCase().includes(t)))
+    .sort((a, b) => sort.dir * (typeof a[sort.k] === 'number' ? a[sort.k] - b[sort.k] : a[sort.k].localeCompare(b[sort.k], 'th')));
+  $('rows').innerHTML = list.map(([sku, name, c, s, price]) =>
+    `<tr class="transition-colors hover:bg-surface-muted">
+      <td class="px-4 py-2 font-heading text-xs text-text-muted">${sku}</td>
+      <td class="px-4 py-2 font-medium">${name}</td>
+      <td class="px-4 py-2 text-text-muted">${c}</td>
+      <td class="px-4 py-2 font-medium ${tone[s]}"><span aria-hidden="true">● </span>${s}</td>
+      <td class="px-4 py-2 text-right tabular-nums">${price.toLocaleString('th-TH')}</td>
+    </tr>`).join('') || '<tr><td colspan="5" class="px-4 py-10 text-center text-text-muted">ไม่พบสินค้าที่ตรงเงื่อนไข</td></tr>';
+  $('k-all').textContent = list.length;
+  $('k-in').textContent = list.filter(i => i[3] === 'มีสินค้า').length;
+  $('k-res').textContent = list.filter(i => i[3] === 'สั่งจอง').length;
+  $('k-out').textContent = list.filter(i => i[3] === 'หมด').length;
+  $('count').textContent = `แสดง ${list.length} จาก ${items.length} รายการ`;
+}
+
+$('head').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  const k = +b.dataset.k; sort = { k, dir: sort.k === k ? -sort.dir : 1 }; head(); render();
+});
+$('reset').addEventListener('click', () => { q.value = ''; cat.value = ''; st.value = ''; render(); });
+[q, cat, st].forEach(el => el.addEventListener('input', render));
+head(); render();
+</script>
+</body>
+</html>

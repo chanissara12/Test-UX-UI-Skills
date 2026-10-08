@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>แคตตาล็อกอุปกรณ์ — Nexora IT</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="hardware-tokens.js"></script>
+<style>@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }</style>
+</head>
+<body class="bg-surface text-text font-sans antialiased">
+<a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:m-3 focus:rounded focus:bg-surface-raised focus:px-3 focus:py-2">ข้ามไปยังเนื้อหา</a>
+
+<header class="sticky top-4 z-50 mx-4 mt-4">
+  <nav class="mx-auto flex h-16 max-w-7xl items-center justify-between rounded-lg border border-border bg-surface-raised/90 px-6 backdrop-blur" aria-label="เมนูหลัก">
+    <a href="hardware-landing.html" class="inline-flex min-h-[44px] items-center font-semibold tracking-tight">Nexora IT</a>
+    <a href="hardware-landing.html" class="inline-flex min-h-[44px] items-center text-sm text-text-muted transition-colors hover:text-text">กลับหน้าหลัก</a>
+  </nav>
+</header>
+
+<main id="main" class="mx-auto max-w-7xl px-6 py-10">
+  <h1 class="text-2xl font-bold tracking-tight md:text-3xl">แคตตาล็อกอุปกรณ์</h1>
+  <p class="mt-1 text-text-muted">ราคาไม่รวม VAT · ราคาโครงการสอบถามฝ่ายขาย</p>
+
+  <form class="mt-8 flex flex-col gap-3 sm:flex-row" role="search" onsubmit="return false">
+    <div class="flex-1">
+      <label for="q" class="sr-only">ค้นหาสินค้า</label>
+      <input id="q" type="search" placeholder="ค้นหารุ่นหรือ SKU" class="w-full rounded-md border border-border-strong bg-surface-raised px-4 py-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-text">
+    </div>
+    <div>
+      <label for="cat" class="sr-only">หมวดสินค้า</label>
+      <select id="cat" class="w-full cursor-pointer rounded-md border border-border-strong bg-surface-raised px-4 py-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-text sm:w-52">
+        <option value="">ทุกหมวด</option><option>Notebook</option><option>Server</option><option>Network</option><option>Peripheral</option>
+      </select>
+    </div>
+  </form>
+  <p id="count" class="mt-4 text-sm text-text-muted" role="status" aria-live="polite"></p>
+
+  <div class="mt-3 overflow-x-auto rounded-lg border border-border bg-surface-raised">
+    <table class="w-full min-w-[720px] text-left text-sm">
+      <caption class="sr-only">รายการอุปกรณ์คอมพิวเตอร์</caption>
+      <thead class="border-b border-border bg-surface-muted text-text">
+        <tr>
+          <th scope="col" class="px-4 py-3 font-semibold">SKU</th>
+          <th scope="col" class="px-4 py-3 font-semibold">สินค้า</th>
+          <th scope="col" class="px-4 py-3 font-semibold">หมวด</th>
+          <th scope="col" class="px-4 py-3 font-semibold">สถานะสต็อก</th>
+          <th scope="col" class="px-4 py-3 text-right font-semibold">ราคา (บาท)</th>
+        </tr>
+      </thead>
+      <tbody id="rows" class="divide-y divide-border"></tbody>
+    </table>
+  </div>
+</main>
+
+<script>
+const items = [
+  ['NB-1401', 'ThinkBook 14 G6 · i5 / 16GB / 512GB', 'Notebook', 'มีสินค้า', 27900],
+  ['NB-1620', 'ProBook 16 · Ryzen 7 / 32GB / 1TB', 'Notebook', 'มีสินค้า', 38500],
+  ['NB-2001', 'Workstation 15 · i9 / 64GB / RTX A2000', 'Notebook', 'สั่งจอง', 89000],
+  ['SV-2210', 'Rack 1U · Xeon 8C / 64GB / 2x960GB SSD', 'Server', 'มีสินค้า', 112000],
+  ['SV-2450', 'Rack 2U · Xeon 16C / 128GB / 4x2TB', 'Server', 'สั่งจอง', 198000],
+  ['SV-3010', 'Tower · Xeon 6C / 32GB / 2x1TB', 'Server', 'มีสินค้า', 64500],
+  ['NW-3105', 'Switch 24 พอร์ต PoE+ Managed', 'Network', 'มีสินค้า', 18900],
+  ['NW-3320', 'Firewall UTM 10 Gbps', 'Network', 'มีสินค้า', 74000],
+  ['NW-3401', 'Access Point Wi-Fi 6E', 'Network', 'หมด', 6900],
+  ['PR-4102', 'จอมอนิเตอร์ 27" QHD IPS', 'Peripheral', 'มีสินค้า', 8900],
+  ['PR-4210', 'Docking Station USB-C 100W', 'Peripheral', 'มีสินค้า', 4200],
+  ['PR-4505', 'เครื่องพิมพ์เลเซอร์ A4 Duplex Network', 'Peripheral', 'สั่งจอง', 9800],
+];
+const tone = { 'มีสินค้า': 'text-success', 'สั่งจอง': 'text-warning', 'หมด': 'text-danger' };
+const q = document.getElementById('q'), cat = document.getElementById('cat');
+const rows = document.getElementById('rows'), count = document.getElementById('count');
+const p = new URLSearchParams(location.search).get('c');
+if ([...cat.options].some(o => o.value === p)) cat.value = p;
+
+function render() {
+  const t = q.value.trim().toLowerCase();
+  const list = items.filter(i => (!cat.value || i[2] === cat.value) && (!t || (i[0] + i[1]).toLowerCase().includes(t)));
+  rows.innerHTML = list.map(([sku, name, c, s, price]) =>
+    `<tr class="transition-colors hover:bg-surface-muted">
+      <td class="px-4 py-3 font-mono text-text-muted">${sku}</td>
+      <td class="px-4 py-3 font-medium">${name}</td>
+      <td class="px-4 py-3 text-text-muted">${c}</td>
+      <td class="px-4 py-3 font-medium ${tone[s]}"><span aria-hidden="true">● </span>${s}</td>
+      <td class="px-4 py-3 text-right tabular-nums">${price.toLocaleString('th-TH')}</td>
+    </tr>`).join('') || '<tr><td colspan="5" class="px-4 py-10 text-center text-text-muted">ไม่พบสินค้าที่ตรงเงื่อนไข</td></tr>';
+  count.textContent = `แสดง ${list.length} จาก ${items.length} รายการ`;
+}
+q.addEventListener('input', render); cat.addEventListener('change', render); render();
+</script>
+</body>
+</html>
