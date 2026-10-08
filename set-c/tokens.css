@@ -1,0 +1,48 @@
+/* Set C design tokens — primitive → semantic → component. */
+
+/* 1. PRIMITIVE */
+:root{
+  --black:#000000; --white:#FFFFFF;
+  --ink-950:#1C1917; --stone-600:#57534E;
+  --paper-50:#F7F4EE; --paper-100:#F1ECE2; --paper-200:#ECE6DA; --paper-300:#D6CFC4;
+  --pink-100:#F3DCE6; --pink-300:#F1B9D1; --rose-300:#F4A6C6; --rose-700:#B4235F;
+  --night-950:#161412; --night-900:#1F1C19; --night-850:#27231F; --night-800:#2A2622; --night-750:#37332E; --plum-900:#3A2430;
+  --sand-100:#F5F0E8; --sand-300:#CFC8BC; --sand-400:#B8B0A4;
+  --border-w:2px; --offset:4px;
+  --font-sans:'Space Grotesk',system-ui,sans-serif; --font-mono:'Space Mono',ui-monospace,monospace;
+}
+
+/* spacing scale (4px base) and type scale: primitives, shared by every component */
+:root{
+  --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --space-5:20px; --space-6:24px;
+  --space-8:32px; --space-10:40px; --space-12:48px; --space-16:64px; --space-20:80px; --space-24:96px;
+  --text-xs:.75rem; --text-sm:.875rem; --text-base:1rem; --text-lg:1.125rem; --text-xl:1.25rem;
+  --text-2xl:1.5rem; --text-3xl:2rem; --text-4xl:2.5rem; --text-5xl:3rem; --text-6xl:3.75rem; --text-7xl:5rem;
+}
+
+/* 2. SEMANTIC (the only layer that changes per theme) */
+:root{
+  --bg:var(--paper-50); --card:var(--white); --text:var(--ink-950); --muted:var(--stone-600);
+  --line:var(--ink-950); --accent:var(--rose-700); --ring:var(--ink-950);
+  --btn:var(--pink-300); --on-btn:var(--ink-950); --btn-line:var(--ink-950);
+  --tint:var(--pink-100); --tint2:var(--paper-200); --hover:var(--paper-100); --rowc:var(--paper-300);
+  --shadow-color:var(--ink-950);
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:var(--night-950); --card:var(--night-900); --text:var(--sand-100); --muted:var(--sand-400);
+  --line:var(--sand-300); --accent:var(--rose-300); --ring:var(--sand-100);
+  --btn-line:var(--pink-300);
+  --tint:var(--plum-900); --tint2:var(--night-800); --hover:var(--night-850); --rowc:var(--night-750);
+  --shadow-color:var(--black);
+}
+
+/* 3. COMPONENT */
+:root{
+  --font:var(--font-sans); --mono:var(--font-mono);
+  --radius:0; --bw:var(--border-w); --rowline:1px;
+  --shadow:var(--offset) var(--offset) 0 var(--shadow-color);
+  --shadow-btn:3px 3px 0 var(--shadow-color);
+  --shadow-btn-hover:var(--offset) var(--offset) 0 var(--shadow-color);
+  --chip-bg:var(--tint); --chip-radius:0; --thead:var(--tint2);
+}
